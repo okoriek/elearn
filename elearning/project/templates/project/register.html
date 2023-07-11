@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+
+<div class="container">
+  <div class="reg">
+    <h3 style="text-align: center">REGISTRATION FORM</h3>
+    <br />
+    <form  method="post">
+        {% if forms.errors %}
+        <center class="info">
+            <span class="error">{{forms.errors}}</span>
+        </center>
+        {% endif %}
+        
+
+
+        {% csrf_token %}
+        {{forms.first_name.label_tag}}
+        {{forms.first_name}}
+        <br>
+        <br>
+        {{forms.last_name.label_tag}}
+        {{forms.last_name}}
+        <br>
+        <br>
+        {{forms.email.label_tag}}
+        {{forms.email}}
+        <br>
+        <br>
+        {{forms.gender.label_tag}}
+        {{forms.gender}}
+        <br>
+        <br>
+        {{forms.phone_number.label_tag}}
+        {{forms.phone_number}}
+        <br>
+        <br>
+        {{forms.password1.label_tag}}
+        {{forms.password1}}
+        <br>
+        <br>
+        {{forms.password2.label_tag}}
+        {{forms.password2}}
+        <br>
+
+        <div class="submit-btn-out">
+            <button type="submit" class="submit-btn">Submit</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
