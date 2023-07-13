@@ -13,6 +13,9 @@ from django.template.loader import render_to_string
 def Home(request):
     return render(request, 'project/index.html')
 
+def Contact(request):
+    return render(request, 'project/contact.html')
+
 def EmailVerification(request, uidb64, token):
     try:
         uid =  force_str(urlsafe_base64_decode(uidb64))

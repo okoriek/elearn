@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<div class="container">
+  <div class="reg">
+    <fieldset disabled>
+      <legend class="mt-5">Payment Information</legend>
+      <div class="mb-3">
+        <label for="firstname" class="form-label">First name:</label>
+        <input
+          type="text"
+          id="firstname"
+          class="form-control"
+          value="{{user.first_name}}"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Last name:</label>
+        <input
+          type="text"
+          id="lastname"
+          class="form-control"
+          value="{{user.last_name}}"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="text"
+          id="email"
+          class="form-control"
+          value="{{user.email}}"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amount" value="20000" />
+      </div>
+    </fieldset>
+
+    <label for="voucher">Voucher:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="voucherinp" />
+      <button class="btn btn-primary" type="button" id="voucher">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+    <div id="infohelp" class="form-text"></div>
+    <br />
+    <br />
+    <div class="submit-btn-out">
+      <button type="submit" class="submit-btn" onclick="payWithPaystack()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+  function payWithPaystack() {
+    const amount = document.getElementById('amount').value
+    let handler = PaystackPop.setup({
+      key: "{{PUBLIC_KEY}}",
+      email: "{{user.email}}",
+      amount: `${amount*100}`,
+      currency: "NGN",
+      ref: "{{payment.reference}}",
+      onClose: function () {
+        alert("Window closed.");
+      },
+      callback: function (response) {
+        window.location.href =
+          "{% url 'paystack:verifypayment' payment.reference %}";
+      },
+    });
+    handler.openIframe();
+  }
+</script>
+{% endblock %}

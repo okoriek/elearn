@@ -39,10 +39,17 @@ class Account(AbstractBaseUser):
         ('Male', 'Male'),
         ('Female', 'Female')
     )
+    courses = (
+        ('Frontend(Html, Css, Javascript)', 'Frontend(Html, Css, Javascript)'),
+        ('Backend(Python, Django)','Backend(Python, Django)'),
+        ('App Development(React Native', 'App Development(React Native)'),
+        ('Arduino(Software & Hardware)', 'Arduino(Software & Hardware)'),
+    )
     first_name    = models.CharField(max_length=20)
     last_name     = models.CharField(max_length=20)
     email         = models.EmailField(max_length=100, unique=True)
     gender        = models.CharField(max_length=10, choices=status)
+    selected_course = models.CharField(max_length=200, choices=courses)
     phone_number  = models.CharField(max_length=100)
     payment_done  = models.BooleanField(default=False)
 
