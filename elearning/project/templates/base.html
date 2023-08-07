@@ -45,25 +45,31 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="{% url 'project:home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>ClC</h2>
         </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="loginbtn navbar-nav ms-auto d-md-block d-lg-none">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="loginbtn navbar-nav ms-auto d-md-block d-lg-none">Login</a>
+        {% endif %}
+    
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{% url 'project:home' %}" class="nav-item nav-link active">Home</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Gallerys</a>
-                    <div class="dropdown-menu fade-down m-0">
-                        <a href="#" class="dropdown-item">Videos</a>
-                        <a href="#" class="dropdown-item">Images</a>
-                    </div>
-                </div>
-                <a href="{% url 'project:contact' %}" class="nav-item nav-link">Contact</a>
+                <a href="{% url 'home' %}" class="nav-item nav-link active"><i class="fas fa-home"></i> Home</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fas fa-user"></i> Profile</a>
+                {% endif %}
+                <a href="{% url 'contact' %}" class="nav-item nav-link"><i class="fas fa-address-book"></i> Contact</a>
             </div>
-            <a href="{% url 'project:register' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+            {% else %}
+            <a href="{% url 'logout' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">LOGOUT<i class="fa fa-arrow-right ms-3"></i></a>
+            {% endif %}
         </div>
     </nav>
     <!-- Navbar End -->

@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<div class="container">
+    <div class="reg">
+      <h3 style="text-align: center">Update Submission</h3>
+      <br/>
+      <form  method="post">
+          {% csrf_token %}
+
+          {{forms.lesson.label_tag}}
+          {{forms.lesson}}
+          <br>
+          <br>
+          {{forms.result_url.label_tag}}
+          {{forms.result_url}}
+          <br>
+          <br>
+          {{forms.github_url.label_tag}}
+          {{forms.github_url}}
+
+          <div class="submit-btn-out">
+              <button type="submit" class="submit-btn">Submit</button>
+          </div>
+      </form>
+    </div>
+</div>
+{% endblock %}

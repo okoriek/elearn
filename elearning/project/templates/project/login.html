@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<div class="container">
+  <div class="reg">
+    <h3 style="text-align: center">LOGIN</h3>
+    <br />
+    {% if messages %}
+      {% for message in messages %}
+        <center><p class="success">{{message}}</p></center>
+      {% endfor %}
+    {% endif %}
+    <form  method="post">
+        {% if form.errors %}
+        <center class="info">
+            <span class="error">Please Enter the correct email and password</span>
+        </center>
+        {% endif %}
+        
+        {% csrf_token %}
+        {{form.username.label_tag}}
+        {{form.username}}
+        <br>
+        <br>
+        {{form.password.label_tag}}
+        {{form.password}}<i class="far fa-eye" id="hide"></i>
+        <br>
+        <br>
+        <p>Forgotten password. Reset <a href="{% url 'reset_password' %}">here</a></p>
+
+        <div class="submit-btn-out">
+            <button type="submit" class="submit-btn">Login</button>
+        </div>
+    </form>
+  </div>
+</div>
+<script>
+  const hidebtn = document.getElementById('hide');
+  const password =  document.getElementById('id_password')
+  
+  
+
+  var clicked = false
+
+  hidebtn.addEventListener('click', ()=>{
+    if (clicked == false){
+      password.type='text'
+      hidebtn.classList.remove('fa-eye')
+      hidebtn.classList.add('fa-eye-slash')
+      clicked = true
+    }
+    else{
+      password.type='password'
+      hidebtn.classList.remove('fa-eye-slash')
+      hidebtn.classList.add('fa-eye')
+      clicked = false
+    }  
+  })
+
+</script>
+{% endblock %}

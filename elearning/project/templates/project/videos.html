@@ -1,0 +1,23 @@
+{% extends 'dashboard.html' %} {% load static %} {% block body %}
+<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<div class="container-fluid">
+{% for x in videos %}
+<a href="{{x.get_absolute_url}}" style="text-decoration: none; color: black;">
+  <div class="row vidlink" >
+    <div class="col-md-4">
+      <span class="textlink">
+        Lesson{{x.pk}}
+      </span>
+    </div>
+    <div class="col-md-4">  
+        <center class="titlelink">{{x.title}}</center>
+    </div><div class="col-md-4">  
+      <i class="far fa-play-circle" id="vidcircle"></i>
+    </div>
+  </div>
+</a>
+{% endfor %}
+</div>
+<script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+{% endblock %}

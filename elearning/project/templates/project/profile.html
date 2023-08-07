@@ -1,0 +1,25 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+
+<div class="container-fluid pt-5">
+    <center><h1>Profile Details</h1></center>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="pdetail"><strong>First Name: </strong>{{request.user.first_name}}</p>
+            <p class="pdetail"><strong>Email: </strong>{{request.user.email}}</p>
+            <p class="pdetail"><strong>Mobile No:: </strong>{{request.user.phone_number}}</p>  
+        </div>
+        <div class="col-md-6">
+            <p class="pdetail"><strong>Last Name: </strong>{{request.user.last_name}}</p>
+            <p class="pdetail"><strong>Gender: </strong>{{request.user.gender}}</p>
+            <p class="pdetail"><strong>Selected Course: </strong>{{request.user.courses}}</p>   
+        </div>
+        <br>
+        <br>
+        <center style="color: red;"><strong>Important Notice!!!</strong><br>Certificate will be Awarded based on these details, in the case of errors contact Administrator(within 1 month)</center>
+    </div>
+</div>
+
+{% endblock %}

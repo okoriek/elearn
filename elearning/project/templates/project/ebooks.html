@@ -1,0 +1,22 @@
+{% extends 'dashboard.html' %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+<div class="container-fluid">
+  <br />
+  <div class="row" style="justify-content: center;">
+  {% for book in books%}
+    <div class="col-lg-2 col-md-6 banner">
+      <center><small><strong>Crimsonic Learning centre</strong></small></center>
+      <br>
+      <center><img src="{{book.img.url}}" style="height: 60px; width: 60px; border-radius: 5px;" alt="error"><center></center>
+      <br>
+      <center><i class="fa-solid fa-graduation-cap" style="color: orangered; height: 35px; width: 35px;"></i></center>
+      <center><smaLL><strong>Summarized</strong></smaLL></center>
+      <center style="margin-bottom: 10px;"><small><strong>from {{book.title}}</strong></small></center>
+      <div style="margin-bottom: 15px;">
+        <a href="{{book.ebook.url}}" class="downbtn">Download <i class="fa-solid fa-download"></i> </a>
+      </div> 
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}

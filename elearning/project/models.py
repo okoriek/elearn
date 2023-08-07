@@ -2,6 +2,8 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
+from django.urls import reverse
+import datetime
 
 class MyUserManager(BaseUserManager):
     def create_user(self,email, first_name,last_name,password=None):
@@ -39,7 +41,7 @@ class Account(AbstractBaseUser):
         ('Male', 'Male'),
         ('Female', 'Female')
     )
-    courses = (
+    course = (
         ('Frontend(Html, Css, Javascript)', 'Frontend(Html, Css, Javascript)'),
         ('Backend(Python, Django)','Backend(Python, Django)'),
         ('App Development(React Native', 'App Development(React Native)'),
@@ -48,9 +50,9 @@ class Account(AbstractBaseUser):
     first_name    = models.CharField(max_length=20)
     last_name     = models.CharField(max_length=20)
     email         = models.EmailField(max_length=100, unique=True)
-    gender        = models.CharField(max_length=10, choices=status)
-    selected_course = models.CharField(max_length=200, choices=courses)
-    phone_number  = models.CharField(max_length=100)
+    gender        = models.CharField(max_length=10, choices=status, blank=True, null=True)
+    courses = models.CharField(max_length=200, choices=course, blank=True, null=True)
+    phone_number  = models.CharField(max_length=100, blank=True, null=True)
     payment_done  = models.BooleanField(default=False)
 
     
@@ -78,3 +80,87 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
+    
+
+class Tutorial_video(models.Model):
+    status=(
+        ('Frontend(Html, Css, Javascript)', 'Frontend(Html, Css, Javascript)'),
+        ('Backend(Python, Django)','Backend(Python, Django)'),
+        ('App Development(React Native', 'App Development(React Native)'),
+        ('Arduino(Software & Hardware)', 'Arduino(Software & Hardware)'),
+    )
+    tags= models.CharField(max_length=50, choices=status, blank=True, null=True)
+    title =  models.CharField(max_length=200, blank=True, null=True)
+    thumbnail = models.FileField(upload_to='thumbnails/', blank=True, null=True)
+    videos =  models.FileField(upload_to='videos/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.tags} {self.title} lesson{self.pk}"
+    
+    def get_absolute_url(self):
+        return reverse('videosdetails', args=[self.pk])
+    
+
+class Ebook(models.Model):
+    status=(
+        ('Frontend(Html, Css, Javascript)', 'Frontend(Html, Css, Javascript)'),
+        ('Backend(Python, Django)','Backend(Python, Django)'),
+        ('App Development(React Native', 'App Development(React Native)'),
+        ('Arduino(Software & Hardware)', 'Arduino(Software & Hardware)'),
+    )
+    tags = models.CharField(max_length=200, choices=status , blank=True, null=True)
+    title = models.CharField(max_length=200, blank=True, null=True)
+    description =  models.CharField(max_length=500, blank=True, null=True)
+    img =  models.ImageField(upload_to='Images/', blank=True, null=True)
+    ebook = models.FileField(upload_to='Ebooks/', blank=True, null=True)
+
+    def __str__(self):
+        return f"Title: {self.title} ---------- Description: {self.description}"
+
+class Duration(models.Model):
+    lesson = models.ForeignKey(Tutorial_video, on_delete=models.CASCADE, blank=True, null=True)
+    deadline = models.DateTimeField(default=timezone.now)
+    expired = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.deadline < timezone.now() :
+            self.expired = True
+        else:
+            self.expired = False
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Topic: {self.lesson} ----------- Deadline: {self.deadline}"
+    
+    
+class Assignment(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
+    lesson = models.ForeignKey(Tutorial_video, on_delete=models.CASCADE, blank=True, null=True)
+    result_url = models.URLField(blank=True, null=True)
+    github_url = models.URLField(blank=True, null=True)
+    feedback = models.TextField(max_length=500, blank=True, null=True)
+    marked = models.BooleanField(default=False)
+    submitted = models.BooleanField(default=False)
+    date_submitted = models.DateTimeField(auto_now_add=True)
+    score = models.IntegerField(default=0)
+
+    
+    def __str__(self):
+        return f"User: {self.user.email} ----------- Topic: {self.lesson}"
+    
+class Total(models.Model):
+    user =  models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
+    total =  models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user}===> {self.total}"
+
+    
+
+
+    
+
+
+    
+
+

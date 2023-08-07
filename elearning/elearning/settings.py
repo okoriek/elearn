@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'elearning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,13 +79,13 @@ DATABASES = {
 }
 
 
-EMAIL_HOST='smtp-relay.brevo.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtppro.zoho.com'
 EMAIL_HOST_PASSWORD=os.environ.get('GMAIL_PASSWORD')
-EMAIL_HOST_USER='crimsoniclearningcentre@gmail.com'
+EMAIL_HOST_USER='admin@crimsoniclearningcentre.com.ng'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'Crimsonic  <crimsoniclearningcentre@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Crimsonic Learning Centre <admin@crimsoniclearningcentre.com.ng>'
 
 #S3 BUCKETS and Email  CONFIG
 
@@ -145,3 +145,7 @@ STATIC_FILES = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/login'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

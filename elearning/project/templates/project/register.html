@@ -31,8 +31,8 @@
         {{forms.gender}}
         <br>
         <br>
-        {{forms.selected_course.label_tag}}
-        {{forms.selected_course}}
+        {{forms.courses.label_tag}}
+        {{forms.courses}}
         <br>
         <br>
         {{forms.phone_number.label_tag}}
@@ -40,11 +40,13 @@
         <br>
         <br>
         {{forms.password1.label_tag}}
-        {{forms.password1}}
         <br>
+        {{forms.password1}}<i class="far fa-eye" id="hide1"></i>
+        <span class="details">Password must include numeric value, alphabet (uppercase and lowercase).</span>
         <br>
+        <br> 
         {{forms.password2.label_tag}}
-        {{forms.password2}}
+        {{forms.password2}}<i class="far fa-eye" id="hide2"></i>
         <br>
 
         <div class="submit-btn-out">
@@ -53,5 +55,49 @@
     </form>
   </div>
 </div>
+<script>
+  const hidebtn = document.getElementById('hide1');
+  const hidebtn2 = document.getElementById('hide2');
+  const password1 =  document.getElementById('id_password1')
+  const password2  = document.getElementById('id_password2')
+  const details = document.querySelector('.details')
 
+  var clicked1 = false
+  var clicked2 = false
+
+  password1.addEventListener('focus',()=>{
+    details.style.display = 'inline'
+  })
+
+  hidebtn.addEventListener('click', ()=>{
+    if (clicked1 == false){
+      password1.type='text'
+      hidebtn.classList.remove('fa-eye')
+      hidebtn.classList.add('fa-eye-slash')
+      clicked1 = true
+    }
+    else{
+      password1.type='password'
+      hidebtn.classList.remove('fa-eye-slash')
+      hidebtn.classList.add('fa-eye')
+      clicked1 = false
+    }  
+  })
+
+
+  hidebtn2.addEventListener('click', ()=>{
+    if (clicked2 == false){
+      password2.type='text'
+      hidebtn2.classList.remove('fa-eye')
+      hidebtn2.classList.add('fa-eye-slash')
+      clicked2 = true
+    }
+    else{
+      password2.type='password'
+      hidebtn2.classList.remove('fa-eye-slash')
+      hidebtn2.classList.add('fa-eye')
+      clicked2 = false
+    }
+  })
+</script>
 {% endblock %}
