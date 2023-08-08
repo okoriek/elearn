@@ -25,7 +25,9 @@
         {{form.password}}<i class="far fa-eye" id="hide"></i>
         <br>
         <br>
-        <p>Forgotten password. Reset <a href="{% url 'reset_password' %}">here</a></p>
+        <p>Forgotten password. Reset <a href="{% url 'reset_password' %}" style="text-decoration: none;">here</a></p>
+        <p>Don't have an Account<a href="{% url 'register' %}" style="text-decoration: none;"> signup</a></p>
+
 
         <div class="submit-btn-out">
             <button type="submit" class="submit-btn">Login</button>

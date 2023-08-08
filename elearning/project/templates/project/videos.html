@@ -2,6 +2,7 @@
 <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 <div class="container-fluid">
+{% if user.payment_done %}
 {% for x in videos %}
 <a href="{{x.get_absolute_url}}" style="text-decoration: none; color: black;">
   <div class="row vidlink" >
@@ -18,6 +19,12 @@
   </div>
 </a>
 {% endfor %}
+{% else %}
+<center style="margin-top: 30vh;">
+  <h3>User Permission Denied Contact Administrator</h3>
+</center>
+{% endif %}
+
 </div>
 <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
 {% endblock %}

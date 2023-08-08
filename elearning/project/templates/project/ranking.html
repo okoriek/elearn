@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 <div class="container-fluid">
   <br>
+  {% if user.payment_done %}
   <table class="table">
     <thead class="table-dark"h
       <tr>
@@ -24,5 +25,10 @@
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  <center style="margin-top: 30vh;">
+    <h3>User Permission Denied Contact Administrator</h3>
+  </center>
+  {% endif %}
 </div>
 {% endblock %}

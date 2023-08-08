@@ -1,6 +1,7 @@
 {% extends 'dashboard.html' %} {% load static %} {% block body %}
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 <div class="container">
+    {% if user.payment_done %}
     <div class="reg">
       <h3 style="text-align: center">Update Submission</h3>
       <br/>
@@ -23,5 +24,10 @@
           </div>
       </form>
     </div>
+    {% else %}
+    <center style="margin-top: 30vh;">
+        <h3>User Permission Denied Contact Administrator</h3>
+    </center>
+    {% endif %}
 </div>
 {% endblock %}

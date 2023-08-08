@@ -3,7 +3,7 @@ from .models import *
 from django.contrib.auth.admin import UserAdmin
 
 class AccountAdmin(UserAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'date_joined', 'is_active')
+    list_display = ('first_name', 'last_name', 'email', 'payment_done','is_active','date_joined')
     list_filter = ('date_joined',)
     search_fields = ('first_name','last_name', 'email')
     readonly_fields = ('last_login', 'date_joined')
@@ -29,6 +29,7 @@ admin.site.register(Tutorial_video)
 admin.site.register(Ebook)
 admin.site.register(Duration)
 admin.site.register(Total)
+admin.site.register(Contact)
 
 
 

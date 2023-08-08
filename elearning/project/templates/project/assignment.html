@@ -1,44 +1,38 @@
 {% extends 'dashboard.html' %} {% load static %} {% block body %}
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
-{% if forms %}
-{% if not edit %}
+{% if user.payment_done %} {% if forms %} {% if not edit %}
 <div class="container">
-    <div class="reg">
-      <h3 style="text-align: center">Task Submission Form</h3>
+  <div class="reg">
+    <h3 style="text-align: center">Task Submission Form</h3>
+    <br />
+    <form method="post">
+      {% csrf_token %} {{forms.lesson.label_tag}} {{forms.lesson}}
       <br />
-      <form  method="post">
-          {% csrf_token %}
+      <br />
+      {{forms.result_url.label_tag}} {{forms.result_url}}
+      <br />
+      <br />
+      {{forms.github_url.label_tag}} {{forms.github_url}}
 
-          {{forms.lesson.label_tag}}
-          {{forms.lesson}}
-          <br>
-          <br>
-          {{forms.result_url.label_tag}}
-          {{forms.result_url}}
-          <br>
-          <br>
-          {{forms.github_url.label_tag}}
-          {{forms.github_url}}
-          
-          <div class="submit-btn-out">
-              <button type="submit" class="submit-btn">Submit</button>
-          </div>
-      </form>
-    </div>
+      <div class="submit-btn-out">
+        <button type="submit" class="submit-btn">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
 {% else %}
-<center style="margin-top: 30vh;">
-    {% if messages %}
-        {% for message in messages %}
-        <p class="success">{{message}}</p>
-        {% endfor %}
-    {% endif %}
-    <p>Task Recorded Successfully <a href="{% url 'edit' %}">Edit Response</a></p>
+<center style="margin-top: 30vh">
+  {% if messages %} {% for message in messages %}
+  <p class="success">{{message}}</p>
+  {% endfor %} {% endif %}
+  <p>Task Recorded Successfully <a href="{% url 'edit' %}">Edit Response</a></p>
 </center>
-{% endif %}
-{% else %}
-<center style="margin-top: 30vh;">
-    <h3>Task Submission Form Closed Contact the Administrator</h3>
+{% endif %} {% else %}
+<center style="margin-top: 30vh">
+  <h3>Task Submission Form Closed Contact the Administrator</h3>
 </center>
-{% endif %}
-{% endblock %}
+{% endif %} {% else %}
+<center style="margin-top: 30vh">
+  <h3>User Permission Denied Contact Administrator</h3>
+</center>
+{% endif %} {% endblock %}

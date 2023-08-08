@@ -101,8 +101,8 @@
             </div>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                 <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                <h1 class="mb-4">Welcome to eLEARNING</h1>
-                <p class="mb-4">Here at eLEARNING our ultimate goal is to help raise great mind in the tech space.</p>
+                <h1 class="mb-4">Welcome to CLC</h1>
+                <p class="mb-4">Here at Crimsonic Learning Centre our ultimate goal is to help raise great mind in the tech space.</p>
                 <p class="mb-4">Our curriculum is designed to be beginner friendly and to help you, reach the peak of your tech dream, here we offer.</p>
                 <div class="row gy-2 gx-4 mb-4">
                     <div class="col-sm-6">
@@ -197,7 +197,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="course-item bg-light">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
                     </div>
                     <div class="text-center p-4 pb-0">
                         <h3 class="mb-0">₦15000.00</h3>
@@ -211,14 +211,16 @@
                         <h5 class="mb-4">Frontend Development<br>(Html, Css, Javascript)</h5>
                     </div>
                     <div class="d-flex border-top">
+                        {% if not user.is_authenticated %}
                         <a href="{% url 'register' %}" class="applybtn">Apply</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="course-item bg-light">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="">
                     </div>
                     <div class="text-center p-4 pb-0">
                         <h3 class="mb-0">₦15000.00</h3>
@@ -232,14 +234,16 @@
                         <h5 class="mb-4">Backend Development<br>(Python, Django)</h5>
                     </div>
                     <div class="d-flex border-top">
+                        {% if not user.is_authenticated %}
                         <a href="{% url 'register' %}" class="applybtn">Apply</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="course-item bg-light">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'img/course-4.jpg' %}" alt="">
                     </div>
                     <div class="text-center p-4 pb-0">
                         <h3 class="mb-0">₦15000.00</h3>
@@ -253,7 +257,9 @@
                         <h5 class="mb-4">React Native <br>(Andriod, Ios)</h5>
                     </div>
                     <div class="d-flex border-top">
+                        {% if not user.is_authenticated %}
                         <a href="{% url 'register' %}" class="applybtn">Apply</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -274,7 +280,9 @@
                         <h5 class="mb-4">Arduino<br>(Hardware & Software)</h5>
                     </div>
                     <div class="d-flex border-top">
+                        {% if not user.is_authenticated %}
                         <a href="{% url 'register' %}" class="applybtn">Apply</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -282,91 +290,4 @@
     </div>
 </div>
 <!-- Courses End -->
-
-
-<!-- Team Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
-            <h1 class="mb-5">Expert Instructors</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item bg-light">
-                    <div class="overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/team-1.jpg' %}" alt="">
-                    </div>
-                    <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Instructor Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item bg-light">
-                    <div class="overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/team-2.jpg' %}" alt="">
-                    </div>
-                    <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Instructor Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item bg-light">
-                    <div class="overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/team-3.jpg' %}" alt="">
-                    </div>
-                    <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Instructor Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item bg-light">
-                    <div class="overflow-hidden">
-                        <img class="img-fluid" src="{% static 'img/team-4.jpg' %}" alt="">
-                    </div>
-                    <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
-                        <div class="bg-light d-flex justify-content-center pt-2 px-1">
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Instructor Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Team End -->
-
 {% endblock %}

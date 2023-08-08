@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 <div class="container-fluid">
   <br />
+  {% if user.payment_done %}
   <div class="row" style="justify-content: center;">
   {% for book in books%}
     <div class="col-lg-2 col-md-6 banner">
@@ -18,5 +19,10 @@
     </div>
   {% endfor %}
   </div>
+  {% else %}
+  <center style="margin-top: 30vh;">
+    <h3>User Permission Denied Contact Administrator</h3>
+  </center>
+  {% endif %}
 </div>
 {% endblock %}

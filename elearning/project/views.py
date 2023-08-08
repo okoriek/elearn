@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from . models import *
+from . models import Contact,Account,Assignment,Total,Tutorial_video,Ebook,Duration
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib import messages
@@ -10,12 +10,24 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import TokenGenerator
 from django.template.loader import render_to_string
-
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 def Home(request):
     return render(request, 'project/index.html')
 
-def Contact(request):
+def ContactView(request):
+    
+    
     return render(request, 'project/contact.html')
+
+def SubmitComplain(request):
+    name =request.POST['name']
+    email =request.POST['email']
+    subject =request.POST['subject']
+    message =request.POST['message']
+    data = Contact.objects.create(name=name, email=email, subject=subject, message=message)
+    data.save()
+    return JsonResponse('DATA SUBMITTED', safe=False)
 
 def EmailVerification(request, uidb64, token):
     try:
@@ -58,38 +70,48 @@ def Register(request):
     args = {'forms':forms}
     return render(request, 'project/register.html', args)
 
-
+@login_required(login_url='/login/')
 def Dashboard(request):
-    
-    return render(request, 'project/profile.html')
+    user = urlsafe_base64_encode(force_bytes(request.user.pk))
+    args = {'id':user}
+    return render(request, 'project/profile.html', args)
 
+@login_required(login_url='/login/')
 def GetVideos(reqeust):
     user = reqeust.user
     videos =  Tutorial_video.objects.filter(tags=user.courses)
     args = {'videos':videos}
     return render(reqeust, 'project/videos.html', args)
 
+@login_required(login_url='/login/')
 def GetVideosDetail(request, pk):
     video =  Tutorial_video.objects.get(pk=pk)
     args = {'data':video}
     return render(request, 'project/playvideo.html', args)
 
-
+@login_required(login_url='/login/')
 def GetEbook(request):
     user = request.user
     ebook = Ebook.objects.filter(tags=user.courses)
     args = {'books':ebook}
     return render(request, 'project/ebooks.html',args)
 
+@login_required(login_url='/login/')
 def LeaderBoard(request):
     user = Total.objects.all()
     args = {'users':user}
     return render(request, 'project/ranking.html', args)
 
+@login_required(login_url='/login/')
 def Task(request):
-    time = Duration.objects.last()
+    try:
+        time = Duration.objects.last()
+        time.save()
+    except:
+        update = Duration.objects.create(expired=True, deadline=timezone.now())
+        update.save()
+    date = Duration.objects.last()
     lesson = Tutorial_video.objects.last()
-    time.save()
     if request.method == 'POST':
         form =  AssignmentForm(request.POST)
         if form.is_valid():
@@ -106,12 +128,14 @@ def Task(request):
             args = {'forms':form, 'edit':submit}
             return render(request, 'project/assignment.html', args )
     except:
-        if time.expired:
+        if date.expired:
             args = None
             return render(request, 'project/assignment.html', args )
         kwarg = {'forms':form }
         return render(request, 'project/assignment.html', kwarg )
-    
+
+
+@login_required(login_url='/login/')
 def EditTask(request):
     user = request.user
     lesson = Tutorial_video.objects.last()

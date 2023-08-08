@@ -1,25 +1,129 @@
-{% extends 'dashboard.html' %}
-{% load static %}
-{% block body %}
+{% extends 'dashboard.html' %} {% load static %} {% block body %}
 <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 
 <div class="container-fluid pt-5">
-    <center><h1>Profile Details</h1></center>
-    <div class="row">
-        <div class="col-md-6">
-            <p class="pdetail"><strong>First Name: </strong>{{request.user.first_name}}</p>
-            <p class="pdetail"><strong>Email: </strong>{{request.user.email}}</p>
-            <p class="pdetail"><strong>Mobile No:: </strong>{{request.user.phone_number}}</p>  
-        </div>
-        <div class="col-md-6">
-            <p class="pdetail"><strong>Last Name: </strong>{{request.user.last_name}}</p>
-            <p class="pdetail"><strong>Gender: </strong>{{request.user.gender}}</p>
-            <p class="pdetail"><strong>Selected Course: </strong>{{request.user.courses}}</p>   
-        </div>
-        <br>
-        <br>
-        <center style="color: red;"><strong>Important Notice!!!</strong><br>Certificate will be Awarded based on these details, in the case of errors contact Administrator(within 1 month)</center>
+  <center><h1>Profile Details</h1></center>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>First Name: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.first_name}}"
+          disabled
+        />
+      </div>
     </div>
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Last Name: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.last_name}}"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Email: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.email}}"
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Phone Number: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.phone_number}}"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Course: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.courses}}"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Gender: </strong></span>
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          value="{{request.user.gender}}"
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3"><strong>Payment Status: </strong></span>
+        {% if request.user.payment_done %}
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          aria-describedby="basic-addon3"
+          style="color:green;"
+          value="Verified"
+          disabled
+        />
+        {% else %}
+        <input
+          type="text"
+          class="form-control"
+          id="basic-url"
+          style="color: red;"
+          aria-describedby="basic-addon3"
+          value="pending"
+          disabled
+        />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if not request.user.payment_done %}
+  <a class="loginbtn" href="{% url 'paystack:payment' id %}">Make payment</a>
+  {%endif%}
+  <br />
+  <br />
+  <center style="color: red">
+    <strong>Important Notice!!!</strong><br />Certificate will be Awarded based
+    on these details, in the case of errors contact Administrator(within 1
+    month)
+  </center>
 </div>
 
 {% endblock %}
